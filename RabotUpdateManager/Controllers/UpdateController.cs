@@ -19,8 +19,12 @@ namespace RabotUpdateManager.Controllers
             this.updateManager = updateManager;
         }
 
+        /// <summary>
+        /// test scenario for generate helloworld on oled display
+        /// </summary>
+        /// <returns></returns>
 
-        [HttpGet(Name = "runTestDisplay")]
+        [HttpGet("runTestDisplay")]
         public string runTestDisplay()
         {
             logger.LogInformation("runTestDisplay endpoint");
@@ -28,13 +32,16 @@ namespace RabotUpdateManager.Controllers
             return "done";
         }
 
-
-        //[HttpGet(Name = "checkServiceStatus")]
-        //public string checkServiceStatus()
-        //{
-        //    logger.LogInformation("checkServiceStatus endpoint");
-        //    updateManager.CheckStatus();
-        //    return "done";
-        //}
+        /// <summary>
+        /// test scenario for get status of service
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("checkServiceStatus")]
+        public string checkServiceStatus()
+        {
+            logger.LogInformation("checkServiceStatus endpoint");
+            updateManager.CheckStatus();
+            return "done";
+        }
     }
 }

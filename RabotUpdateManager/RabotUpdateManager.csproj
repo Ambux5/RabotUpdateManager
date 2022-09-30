@@ -9,7 +9,12 @@
   <ItemGroup>
     <PackageReference Include="CliWrap" Version="3.5.0" />
     <PackageReference Include="SSD1306-Sharp" Version="0.4.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 
 </Project>

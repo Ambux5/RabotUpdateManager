@@ -2,6 +2,7 @@
 using RabotUpdateManager.Abstractions;
 using RabotUpdateManager.Managers;
 using RabotUpdateManager.Options;
+using System.Reflection;
 
 namespace RabotUpdateManager
 {
@@ -23,9 +24,18 @@ namespace RabotUpdateManager
             services.AddSingleton<IDisplayManager, DisplayManager>();
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RabotUpdateManager", Version = "v1" });
+                options.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "RabotUpdateManager",
+                        Description =  "API for update managing rabot service and autoupdate new version",
+                        Version = "v1",
+                    });
+                var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                options.IncludeXmlComments(filePath);
             });
         }
 
@@ -35,9 +45,7 @@ namespace RabotUpdateManager
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RabotUpdateManager v1"));
-            }
+               }
 
             app.UseHttpsRedirection();
 
@@ -49,6 +57,15 @@ namespace RabotUpdateManager
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options => 
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "RabotUpdateManager API");
+                //options.RoutePrefix = "";
+            });
+
         }
     }
 }
