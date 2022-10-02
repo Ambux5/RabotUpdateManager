@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using RabotUpdateManager.Abstractions;
 using RabotUpdateManager.Managers;
 using RabotUpdateManager.Options;
@@ -63,7 +64,7 @@ namespace RabotUpdateManager
             app.UseSwaggerUI(options => 
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "RabotUpdateManager API");
-                //options.RoutePrefix = "";
+                options.RoutePrefix = "";
             });
 
         }
